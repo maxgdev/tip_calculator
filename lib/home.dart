@@ -33,7 +33,7 @@ class _BillSplitterState extends State<BillSplitter> {
                     Text("Total Per Person",
                         style: TextStyle(fontSize: 20, color: Colors.blue)),
                     Text(
-                      "£120",
+                      "\$120",
                       style: TextStyle(fontSize: 30, color: Colors.blue),
                     )
                   ],
@@ -44,14 +44,30 @@ class _BillSplitterState extends State<BillSplitter> {
               margin: EdgeInsets.only(top: 20.0),
               padding: EdgeInsets.all(12.0),
               decoration: BoxDecoration(
-                color: Colors.transparent,
-                border: Border.all(
-                  color: Colors.blueGrey.shade100,
-                  style: BorderStyle.solid,
-                ),
-              ),
+                  color: Colors.transparent,
+                  border: Border.all(
+                    color: Colors.blueGrey.shade100,
+                    style: BorderStyle.solid,
+                  ),
+                  borderRadius: BorderRadius.circular(12.0)),
               child: Column(
-                children: [],
+                children: [
+                  TextField(
+                    keyboardType:
+                        TextInputType.numberWithOptions(decimal: true),
+                    style: TextStyle(color: Colors.grey),
+                    decoration: InputDecoration(
+                        prefixText: "Bill Amount",
+                        prefixIcon: Icon(Icons.attach_money)),
+                    onChanged: (String value) {
+                      try {
+                        _billAmount = double.parse(value);
+                      } catch (exeption) {
+                        _billAmount = 0.0;
+                      }
+                    },
+                  )
+                ],
               ),
             ),
           ],
