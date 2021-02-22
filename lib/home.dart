@@ -113,7 +113,7 @@ class _BillSplitterState extends State<BillSplitter> {
                           InkWell(
                             onTap: () {
                               setState(() {
-                               _personCounter++;
+                                _personCounter++;
                               });
                             },
                             child: Container(
@@ -139,6 +139,47 @@ class _BillSplitterState extends State<BillSplitter> {
                       )
                     ],
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Tip",
+                        style: TextStyle(color: Colors.grey.shade700),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(17.0),
+                        child: Text("\$50.00",
+                            style: TextStyle(
+                                color: Colors.blueAccent,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0)),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        "$_tipPercentage %",
+                        style: TextStyle(
+                            color: Colors.blueAccent,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0),
+                      ),
+                      Slider(
+                        min: 0,
+                        max: 100,
+                        // activeColor: Colors.blueAccent,
+                        // inactiveColor: Colors.grey,
+                        divisions: 10,
+                        value: _tipPercentage.toDouble(),
+                        onChanged: (double sliderValue) {
+                          setState(() {
+                            _tipPercentage = sliderValue.round();
+                          });
+                        },
+                      )
+                    ],
+                  )
                 ],
               ),
             ),
