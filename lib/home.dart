@@ -28,8 +28,11 @@ class _BillSplitterState extends State<BillSplitter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Tip Calculator")),
+      ),
       body: Container(
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.025),
         alignment: Alignment.center,
         color: Colors.white,
         child: ListView(
@@ -77,9 +80,10 @@ class _BillSplitterState extends State<BillSplitter> {
                   TextField(
                     keyboardType:
                         TextInputType.numberWithOptions(decimal: true),
-                    style: TextStyle(color: Colors.blue),
+                    style: TextStyle(color: Colors.blue, fontSize: 20),
                     decoration: InputDecoration(
-                        prefixText: "Bill Amount",
+                        prefixText: "Amount: ",
+                        
                         prefixIcon: Icon(Icons.attach_money)),
                     onChanged: (String value) {
                       try {
