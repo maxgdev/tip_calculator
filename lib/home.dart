@@ -66,7 +66,79 @@ class _BillSplitterState extends State<BillSplitter> {
                         _billAmount = 0.0;
                       }
                     },
-                  )
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Split",
+                        style: TextStyle(color: Colors.grey.shade700),
+                      ),
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                if (_personCounter > 1) {
+                                  _personCounter--;
+                                } else {
+                                  // do nothing
+                                }
+                              });
+                            },
+                            child: Container(
+                              width: 40,
+                              height: 40,
+                              margin: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7.0),
+                                color: Colors.blue[50],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "-",
+                                  style: TextStyle(
+                                      color: Colors.blueAccent,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Text("$_personCounter",
+                              style: TextStyle(
+                                  color: Colors.blueAccent,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                               _personCounter++;
+                              });
+                            },
+                            child: Container(
+                              width: 40,
+                              height: 40,
+                              margin: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7.0),
+                                color: Colors.blue[50],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "+",
+                                  style: TextStyle(
+                                      color: Colors.blueAccent,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),
