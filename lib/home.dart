@@ -9,6 +9,22 @@ class _BillSplitterState extends State<BillSplitter> {
   int _tipPercentage = 0;
   int _personCounter = 1;
   double _billAmount = 0.0;
+
+  calcTotalPerPerson(double totalTip, double billAmount, int splitBy) {
+    var totalPerPerson = (totalTip + billAmount) / splitBy;
+    return totalPerPerson.toStringAsFixed(2);
+  }
+
+  calcTotalTip(double billAmount, int splitBy, int tipPercentage) {
+    double totalTip = 0;
+    if (billAmount < 0 || billAmount.toString().isEmpty || billAmount == null) {
+      // do nothing
+    } else {
+      totalTip = (billAmount * tipPercentage) / 100;
+    }
+    return totalTip;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +48,15 @@ class _BillSplitterState extends State<BillSplitter> {
                   children: [
                     Text("Total Per Person",
                         style: TextStyle(fontSize: 20, color: Colors.blue)),
-                    Text(
-                      "\$120",
-                      style: TextStyle(fontSize: 30, color: Colors.blue),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "\$${calcTotalPerPerson(calcTotalTip(_billAmount, _personCounter, _tipPercentage), _billAmount, _personCounter)}",
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold),
+                      ),
                     )
                   ],
                 ),
@@ -55,15 +77,19 @@ class _BillSplitterState extends State<BillSplitter> {
                   TextField(
                     keyboardType:
                         TextInputType.numberWithOptions(decimal: true),
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(color: Colors.blue),
                     decoration: InputDecoration(
                         prefixText: "Bill Amount",
                         prefixIcon: Icon(Icons.attach_money)),
                     onChanged: (String value) {
                       try {
-                        _billAmount = double.parse(value);
+                        setState(() {
+                          _billAmount = double.parse(value);
+                        });
                       } catch (exeption) {
-                        _billAmount = 0.0;
+                        setState(() {
+                          _billAmount = 0.0;
+                        });
                       }
                     },
                   ),
@@ -148,7 +174,8 @@ class _BillSplitterState extends State<BillSplitter> {
                       ),
                       Padding(
                         padding: EdgeInsets.all(17.0),
-                        child: Text("\$50.00",
+                        child: Text(
+                            "\$${(calcTotalTip(_billAmount, _personCounter, _tipPercentage)).toStringAsFixed(2)}",
                             style: TextStyle(
                                 color: Colors.blueAccent,
                                 fontWeight: FontWeight.bold,
